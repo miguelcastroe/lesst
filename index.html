@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lester</title>
+    <title>ASCII L Animation</title>
     <style>
         * {
             margin: 0;
@@ -19,15 +19,15 @@
             background-color: black;
             color: white;
             font-family: monospace;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         #animation {
             white-space: pre;
-            font-size: 20px;
+            font-size: 10px;
             width: 100%;
             height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
     </style>
 </head>
@@ -44,8 +44,8 @@
         let L_directionY = 1;
 
         function updateDimensions() {
-            envWidth = Math.floor(window.innerWidth / 20);
-            envHeight = Math.floor(window.innerHeight / 20);
+            envWidth = Math.floor(window.innerWidth / 10);
+            envHeight = Math.floor(window.innerHeight / 10);
         }
 
         function createEnvironment() {
@@ -75,7 +75,7 @@
         function placeComingSoon(env) {
             const text = "Coming soon";
             const startX = Math.max(0, Math.floor((envWidth - text.length) / 2));
-            const startY = envHeight - 2;
+            const startY = envHeight - 1;
             for (let i = 0; i < text.length && startX + i < envWidth; i++) {
                 env[startY][startX + i] = text[i];
             }
@@ -88,7 +88,7 @@
             if (L_x <= 0 || L_x + 6 >= envWidth) {
                 L_directionX *= -1;
             }
-            if (L_y <= 0 || L_y + 8 >= envHeight) {
+            if (L_y <= 0 || L_y + 6 >= envHeight) {
                 L_directionY *= -1;
             }
         }
