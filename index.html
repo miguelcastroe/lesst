@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: relative;
+        }
+        #animation {
+            white-space: pre;
+            font-size: calc(1vw + 1vh + 10px);
+        }
+        #coming-soon {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: monospace;
+            color: lime;
+            font-size: calc(1vw + 1vh + 10px);
+        }
+    </style>
+</head>
+<body>
+    <div id="animation"></div>
+    <div id="coming-soon">Coming soon</div>
+
+    <script>
+        let envWidth = 20;
+        let envHeight = 10;
+        const animationElement = document.getElementById('animation');
+
+        function updateDimensions() {
+            const widthFactor = Math.floor(window.innerWidth / 30);
+            const heightFactor = Math.floor(window.innerHeight / 60);
+            envWidth = widthFactor > 20 ? widthFactor : 20;
+            envHeight = heightFactor > 10 ? heightFactor : 10;
+        }
+
+        function createEnvironment() {
+            let env = [];
+            for (let i = 0; i < envHeight; i++) {
+                let row = [];
+                for (let j = 0; j < envWidth; j++) {
+                    row.push(randomChar());
+                }
+                env.push(row);
+            }
+            return env;
+        }
+
+        function randomChar() {
+            const chars = ['.', ',', '*', '+', '-', '~'];
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        function placeL(env) {
+            const L_x = 2;
+            const L_y = 2;
+
+            for (let i = 0; i < 4 && L_y + i < envHeight; i++) {
+                env[L_y + i][L_x] = 'L';
+            }
+            for (let i = 0; i < 3 && L_x + i < envWidth; i++) {
+                env[L_y + 4][L_x + i] = 'L';
+            }
+        }
+
+        function displayEnvironment(env) {
+            let output = "";
+            for (let row of env) {
+                output += row.join("") + "\n";
+            }
+            animationElement.textContent = output;
+        }
+
+        function animate() {
+            updateDimensions();
+            const environment = createEnvironment();
+            placeL(environment);
+            displayEnvironment(environment);
+        }
+
+        window.addEventListener('resize', animate);
+        setInterval(animate, 200);
+    </script>
+</body>
+</html>
