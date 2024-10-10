@@ -1,142 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII L Animation</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html, body {
-            height: 100%;
-            width: 100%;
-        }
-        body {
-            overflow: hidden;
-            background-color: black;
-            color: white;
-            font-family: monospace;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        #animation {
-            white-space: pre;
-            font-size: 10px;
-            width: 100vw;
-            height: 100vh;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mike's On Fire</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: monospace;
+      overflow: hidden;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
 </head>
 <body>
-    <div id="animation"></div>
-
-    <script>
-        let envWidth = 100;
-        let envHeight = 40;
-        const animationElement = document.getElementById('animation');
-        let L_x = 0;
-        let L_y = 0;
-        let L_directionX = 1;
-        let L_directionY = 1;
-
-        function updateDimensions() {
-            envWidth = Math.floor(window.innerWidth / 10);
-            envHeight = Math.floor(window.innerHeight / 10);
-            console.log(`Updated dimensions: envWidth = ${envWidth}, envHeight = ${envHeight}`);
-        }
-
-        function createEnvironment() {
-            let env = [];
-            for (let i = 0; i < envHeight; i++) {
-                let row = [];
-                for (let j = 0; j < envWidth; j++) {
-                    row.push(randomChar());
-                }
-                env.push(row);
-            }
-            console.log(`Environment created with dimensions: ${envHeight} x ${envWidth}`);
-            return env;
-        }
-
-        function randomChar() {
-            const chars = ['.', ',', '*', '+', '-', '~'];
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            return char;
-        }
-
-        function placeL(env) {
-            const text = "LESTER";
-            for (let i = 0; i < text.length; i++) {
-                const y = L_y + i;
-                if (y >= 0 && y < envHeight && L_x >= 0 && L_x < envWidth) {
-                    env[y][L_x] = text[i];
-                }
-            }
-            console.log(`Placed LESTER at: L_x = ${L_x}, L_y = ${L_y}`);
-        }
-
-        function placeComingSoon(env) {
-            const text = "Coming soon";
-            const startX = Math.max(0, Math.floor((envWidth - text.length) / 2));
-            const startY = envHeight - 1;
-            for (let i = 0; i < text.length && startX + i < envWidth; i++) {
-                env[startY][startX + i] = text[i];
-            }
-            console.log(`Placed "Coming soon" at row: ${startY}, starting column: ${startX}`);
-        }
-
-        function moveL() {
-            L_x += L_directionX;
-            L_y += L_directionY;
-
-            if (L_x < 0) {
-                L_x = 0;
-                L_directionX *= -1;
-                console.log(`Reversed L_directionX: ${L_directionX}`);
-            } else if (L_x + 6 > envWidth) {
-                L_x = envWidth - 6;
-                L_directionX *= -1;
-                console.log(`Reversed L_directionX: ${L_directionX}`);
-            }
-
-            if (L_y < 0) {
-                L_y = 0;
-                L_directionY *= -1;
-                console.log(`Reversed L_directionY: ${L_directionY}`);
-            } else if (L_y + 5 > envHeight) {
-                L_y = envHeight - 5;
-                L_directionY *= -1;
-                console.log(`Reversed L_directionY: ${L_directionY}`);
-            }
-
-            console.log(`Moved L to: L_x = ${L_x}, L_y = ${L_y}`);
-        }
-
-        function displayEnvironment(env) {
-            let output = "";
-            for (let row of env) {
-                output += row.join("") + "\n";
-            }
-            animationElement.textContent = output;
-            console.log(`Displayed environment`);
-        }
-
-        function animate() {
-            console.log(`Animating frame`);
-            updateDimensions();
-            const environment = createEnvironment();
-            moveL();
-            placeL(environment);
-            placeComingSoon(environment);
-            displayEnvironment(environment);
-        }
-
-        window.addEventListener('resize', animate);
-        setInterval(animate, 100);
-    </script>
+  <script type="module" src="./script.js"></script>
 </body>
 </html>
