@@ -3,27 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII L Animation</title>
+    <title>Lester</title>
     <style>
-        body {
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+        body {
             overflow: hidden;
             background-color: black;
             color: white;
             font-family: monospace;
-            height: 100vh;
-            width: 100vw;
-            position: relative;
-        }
-        #animation {
-            white-space: pre;
-            font-size: 10px;
-            width: 100%;
-            height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            position: absolute;
+        }
+        #animation {
+            white-space: pre;
+            font-size: 20px;
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -40,7 +44,7 @@
         let L_directionY = 1;
 
         function updateDimensions() {
-            envWidth = Math.floor(window.innerWidth / 10);
+            envWidth = Math.floor(window.innerWidth / 20);
             envHeight = Math.floor(window.innerHeight / 20);
         }
 
@@ -62,13 +66,9 @@
         }
 
         function placeL(env) {
-            for (let i = 0; i < 4 && L_y + i < envHeight; i++) {
-                env[L_y + i][L_x] = 'L';
-            }
-            for (let i = 0; i < 3 && L_x + i < envWidth; i++) {
-                if (L_y + 4 < envHeight) {
-                    env[L_y + 4][L_x + i] = 'L';
-                }
+            const text = "LESTER";
+            for (let i = 0; i < text.length && L_y + i < envHeight; i++) {
+                env[L_y + i][L_x] = text[i];
             }
         }
 
@@ -85,10 +85,10 @@
             L_x += L_directionX;
             L_y += L_directionY;
 
-            if (L_x <= 0 || L_x + 3 >= envWidth) {
+            if (L_x <= 0 || L_x + 6 >= envWidth) {
                 L_directionX *= -1;
             }
-            if (L_y <= 0 || L_y + 4 >= envHeight) {
+            if (L_y <= 0 || L_y + 8 >= envHeight) {
                 L_directionY *= -1;
             }
         }
@@ -111,7 +111,7 @@
         }
 
         window.addEventListener('resize', animate);
-        setInterval(animate, 200);
+        setInterval(animate, 100);
     </script>
 </body>
 </html>
