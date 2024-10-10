@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ASCII L Animation</title>
+    <title>ASCII Lester</title>
     <style>
         * {
             margin: 0;
@@ -23,8 +23,8 @@
         #animation {
             white-space: pre;
             font-size: 10px;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             position: absolute;
             top: 0;
             left: 0;
@@ -67,8 +67,11 @@
 
         function placeL(env) {
             const text = "LESTER";
-            for (let i = 0; i < text.length && L_y + i < envHeight; i++) {
-                env[L_y + i][L_x] = text[i];
+            for (let i = 0; i < text.length; i++) {
+                const y = L_y + i;
+                if (y >= 0 && y < envHeight) {
+                    env[y][L_x] = text[i];
+                }
             }
         }
 
@@ -88,7 +91,7 @@
             if (L_x <= 0 || L_x + 6 >= envWidth) {
                 L_directionX *= -1;
             }
-            if (L_y <= 0 || L_y + 6 >= envHeight) {
+            if (L_y <= 0 || L_y + 5 >= envHeight) {
                 L_directionY *= -1;
             }
         }
